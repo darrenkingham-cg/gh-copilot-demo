@@ -31,7 +31,8 @@ export function useCart() {
   const cartCount = computed(() => cartItems.value.length)
   
   const cartTotal = computed(() => {
-    return cartItems.value.reduce((sum, item) => sum + item.price, 0)
+    const total = cartItems.value.reduce((sum, item) => sum + item.price, 0)
+    return Math.round(total * 100) / 100
   })
 
   return {

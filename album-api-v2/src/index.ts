@@ -20,7 +20,7 @@ app.get('/albums/:id', (req: Request, res: Response) => {
 // POST /albums - Add new album
 app.post('/albums', (req: Request, res: Response) => {
   const { title, artist, year, price, image_url } = req.body;
-  if (!title || !artist || typeof year !== 'number' || typeof price !== 'number' || !image_url) {
+  if (!title || !artist || typeof year !== 'number' || typeof price !== 'number' || price < 0 || !image_url) {
     return res.status(400).json({ error: 'Invalid album data' });
   }
   const id = albums.length ? Math.max(...albums.map(a => a.id)) + 1 : 1;
@@ -35,7 +35,7 @@ app.put('/albums/:id', (req: Request, res: Response) => {
   const index = albums.findIndex(a => a.id === id);
   if (index === -1) return res.status(404).send();
   const { title, artist, year, price, image_url } = req.body;
-  if (!title || !artist || typeof year !== 'number' || typeof price !== 'number' || !image_url) {
+  if (!title || !artist || typeof year !== 'number' || typeof price !== 'number' || price < 0 || !image_url) {
     return res.status(400).json({ error: 'Invalid album data' });
   }
   albums[index] = { id, title, artist, year, price, image_url };
