@@ -3,13 +3,58 @@ export interface Album {
   title: string;
   artist: string;
   year: number;
+  price: number;
+  image_url: string;
 }
 
 // Sample data matching the .NET API
 export const albums: Album[] = [
-  { id: 1, title: "Abbey Road", artist: "The Beatles", year: 1969 },
-  { id: 2, title: "The Dark Side of the Moon", artist: "Pink Floyd", year: 1973 },
-  { id: 3, title: "Thriller", artist: "Michael Jackson", year: 1982 },
-  { id: 4, title: "Back in Black", artist: "AC/DC", year: 1980 },
-  { id: 5, title: "Rumours", artist: "Fleetwood Mac", year: 1977 }
+  { 
+    id: 1, 
+    title: "You, Me and an App Id", 
+    artist: "Daprize", 
+    year: 2020, 
+    price: 10.99, 
+    image_url: "https://aka.ms/albums-daprlogo" 
+  },
+  { 
+    id: 2, 
+    title: "Seven Revision Army", 
+    artist: "The Blue-Green Stripes", 
+    year: 2021, 
+    price: 13.99, 
+    image_url: "https://aka.ms/albums-containerappslogo" 
+  },
+  { 
+    id: 3, 
+    title: "Scale It Up", 
+    artist: "KEDA Club", 
+    year: 2022, 
+    price: 13.99, 
+    image_url: "https://aka.ms/albums-kedalogo" 
+  },
+  { 
+    id: 4, 
+    title: "Lost in Translation", 
+    artist: "MegaDNS", 
+    year: 2023, 
+    price: 12.99, 
+    image_url: "https://aka.ms/albums-envoylogo" 
+  },
+  { 
+    id: 5, 
+    title: "Lock Down Your Love", 
+    artist: "V is for VNET", 
+    year: 2024, 
+    price: 12.99, 
+    image_url: "https://aka.ms/albums-vnetlogo" 
+  },
+  { 
+    id: 6, 
+    title: "Sweet Container O' Mine", 
+    artist: "Guns N Probeses", 
+    year: 2025, 
+    price: 14.99, 
+    image_url: "https://aka.ms/albums-containerappslogo" 
+  }
 ];
