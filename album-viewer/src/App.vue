@@ -1,12 +1,13 @@
 <template>
   <div class="app">
     <header class="header">
-      <div class="header-content">
-        <div class="header-text">
-          <h1>🎵 Album Collection</h1>
-          <p>Discover amazing music albums</p>
-        </div>
-        <CartIcon @toggle-cart="toggleCart" />
+      <h1>🎵 Album Collection</h1>
+      <p>Discover amazing music albums</p>
+      <div class="cart-header">
+        <button class="cart-btn" @click="showCart = true">
+          <span class="cart-icon">🛒</span>
+          <span v-if="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
+        </button>
       </div>
     </header>
 
@@ -26,11 +27,12 @@
           v-for="album in albums" 
           :key="album.id" 
           :album="album" 
+          @add-to-cart="addToCart"
         />
       </div>
     </main>
 
-    <CartModal :is-open="isCartOpen" @close="toggleCart" />
+    <CartModal v-if="showCart" :cart="cart" @close="showCart = false" @remove-from-cart="removeFromCart" />
   </div>
 </template>
 
@@ -38,14 +40,16 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import AlbumCard from './components/AlbumCard.vue'
-import CartIcon from './components/CartIcon.vue'
 import CartModal from './components/CartModal.vue'
 import type { Album } from './types/album'
+import { useCart } from './utils/useCart'
 
 const albums = ref<Album[]>([])
 const loading = ref<boolean>(true)
 const error = ref<string | null>(null)
-const isCartOpen = ref<boolean>(false)
+const showCart = ref(false)
+
+const { cart, addToCart, removeFromCart, cartCount } = useCart()
 
 const fetchAlbums = async (): Promise<void> => {
   try {
@@ -82,18 +86,31 @@ onMounted(() => {
   color: white;
 }
 
-.header-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
+.cart-header {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
 }
-
-.header-text {
-  flex: 1;
-  text-align: center;
+.cart-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-size: 2rem;
+}
+.cart-icon {
+  font-size: 2rem;
+}
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #e53e3e;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .header h1 {
