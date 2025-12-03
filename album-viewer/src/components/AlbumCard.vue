@@ -28,17 +28,27 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { Album } from '../types/album'
+import { useCart } from '../composables/useCart'
 
 interface Props {
   album: Album
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const { addToCart, isInCart } = useCart()
+
+const inCart = computed(() => isInCart(props.album.id))
 
 const handleImageError = (event: Event): void => {
   const target = event.target as HTMLImageElement
   target.src = 'https://via.placeholder.com/300x300/667eea/white?text=Album+Cover'
+}
+
+const handleAddToCart = (): void => {
+  addToCart(props.album)
 }
 </script>
 
@@ -165,6 +175,13 @@ const handleImageError = (event: Event): void => {
 .btn-primary:hover {
   background: #5a6fd8;
   transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+  background: #a0aad8;
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.7;
 }
 
 .btn-secondary {

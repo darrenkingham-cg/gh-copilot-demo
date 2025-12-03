@@ -65,6 +65,10 @@ const fetchAlbums = async (): Promise<void> => {
   }
 }
 
+const toggleCart = (): void => {
+  isCartOpen.value = !isCartOpen.value
+}
+
 onMounted(() => {
   fetchAlbums()
 })
@@ -190,6 +194,11 @@ onMounted(() => {
   
   .header h1 {
     font-size: 2rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
   }
   
   .albums-grid {
